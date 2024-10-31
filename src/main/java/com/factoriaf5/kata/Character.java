@@ -1,54 +1,63 @@
-    package com.factoriaf5.kata;
+package com.factoriaf5.kata;
 
 public class Character {
     private int health;
     private int level;
-    private boolean isAlive;
+    private boolean alive;
+    private int range;
 
     
-
-    public Character() {
+    public Character(String type) {
         this.health = 1000;
         this.level = 1;
-        this.isAlive = true;
-    }
-
-    public void Damage(int damage) {
-        health -= damage;
-        if (health <= 0) {
-            isAlive = false;
-        }
-    }
-
-    public void heal(int amount) {
-        if (isAlive) {
-            health = Math.min(health + amount, 1000);
-        }
+        this.alive = true;
         
+        if (type.equalsIgnoreCase("Melee")) {
+            this.range = 2; 
+        } else if (type.equalsIgnoreCase("Ranged")) {
+            this.range = 20; 
+        } else {
+            throw new IllegalArgumentException("Tipo de personaje no válido: use 'Melee' o 'Ranged'");
+        }
+    }
+
+    public void Damage(Character target, int damage, int distance) {
+        
+        if (target == this || distance > this.range) {
+            return;
+        }
+
+     
+        if (target.level >= this.level + 5) {
+            damage /= 2;
+        } else if (target.level <= this.level - 5) {
+            damage = (int) (damage * 1.5);
+        }
+
+        
+        target.health -= damage;
+        if (target.health <= 0) {
+            target.alive = false;
+            target.health = 0;
+        }
+    }
+
+    public void healSelf(int heal) {
+        if (!this.alive) {
+            return;
+        }
+        this.health = Math.min(this.health + heal, 1000);
     }
 
     public int getHealth() {
         return health;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
     public boolean isAlive() {
-        return isAlive;
+        return alive;
     }
 
-    public void setAlive(boolean isAlive) {
-        this.isAlive = isAlive;
+    public int getRange() {
+        return range;
     }
-    
 }
