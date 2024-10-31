@@ -4,40 +4,44 @@ public class Character {
     private int health;
     private int level;
     private boolean alive;
-    
-    
+
     public Character() {
         this.health = 1000;
         this.level = 1;
         this.alive = true;
     }
-    
-    
+
     public void Damage(Character target, int damage) {
         if (target == this) {
-            return; 
+            return;
         }
-    
-        
+
         if (target.level >= this.level + 5) {
-            damage /= 2; 
+            damage /= 2;
         } else if (target.level <= this.level - 5) {
-            damage = (int) (damage * 1.5); 
+            damage = (int) (damage * 1.5);
         }
-    
-        
+
         target.health -= damage;
         if (target.health <= 0) {
             target.alive = false;
-            target.health = 0; 
+            target.health = 0;
         }
     }
 
-    
     public void healSelf(int heal) {
         if (!this.alive) {
-            return; 
+            return;
         }
-        this.health = Math.min(this.health + heal, 1000); 
+        this.health = Math.min(this.health + heal, 1000);
+    }
+
+   
+    public int getHealth() {
+        return health;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 }
