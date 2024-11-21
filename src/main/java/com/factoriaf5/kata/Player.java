@@ -1,17 +1,17 @@
 package com.factoriaf5.kata;
 
-public class Character {
+public class Player {
     private int health;
-    private int level;
+    int level;
     private boolean alive;
 
-    public Character() {
+    public Player() {
         this.health = 1000;
         this.level = 1;
         this.alive = true;
     }
 
-    public void Damage(Character target, int damage) {
+    public void Damage(Player target, int damage) {
         if (target == this) {
             return;
         }
@@ -36,7 +36,6 @@ public class Character {
         this.health = Math.min(this.health + heal, 1000);
     }
 
-   
     public int getHealth() {
         return health;
     }
