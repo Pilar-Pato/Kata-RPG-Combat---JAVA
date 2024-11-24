@@ -1,40 +1,27 @@
 package com.factoriaf5.kata;
 
-public class Character {
+public class Player {
     private int health;
-    private int level;
+    int level;
     private boolean alive;
-    private int range;
 
-    
-    public Character(String type) {
+    public Player() {
         this.health = 1000;
         this.level = 1;
         this.alive = true;
-        
-        if (type.equalsIgnoreCase("Melee")) {
-            this.range = 2; 
-        } else if (type.equalsIgnoreCase("Ranged")) {
-            this.range = 20; 
-        } else {
-            throw new IllegalArgumentException("Tipo de personaje no válido: use 'Melee' o 'Ranged'");
-        }
     }
 
-    public void Damage(Character target, int damage, int distance) {
-        
-        if (target == this || distance > this.range) {
+    public void Damage(Player target, int damage) {
+        if (target == this) {
             return;
         }
 
-     
         if (target.level >= this.level + 5) {
             damage /= 2;
         } else if (target.level <= this.level - 5) {
             damage = (int) (damage * 1.5);
         }
 
-        
         target.health -= damage;
         if (target.health <= 0) {
             target.alive = false;
@@ -55,9 +42,5 @@ public class Character {
 
     public boolean isAlive() {
         return alive;
-    }
-
-    public int getRange() {
-        return range;
     }
 }

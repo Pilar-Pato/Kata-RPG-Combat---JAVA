@@ -1,17 +1,16 @@
 package com.factoriaf5.kata;
 
-public class Character {
+public class PlayerThree {
     private int health;
-    private int level;
+    int level;
     private boolean alive;
     private int range;
 
-    
-    public Character(String type) {
+    public PlayerThree(String type) {
         this.health = 1000;
         this.level = 1;
         this.alive = true;
-        
+
         if (type.equalsIgnoreCase("Melee")) {
             this.range = 2; 
         } else if (type.equalsIgnoreCase("Ranged")) {
@@ -21,20 +20,17 @@ public class Character {
         }
     }
 
-    public void Damage(Character target, int damage, int distance) {
-        
+    public void Damage(PlayerThree target, int damage, int distance) {
         if (target == this || distance > this.range) {
             return;
         }
 
-     
         if (target.level >= this.level + 5) {
             damage /= 2;
         } else if (target.level <= this.level - 5) {
             damage = (int) (damage * 1.5);
         }
 
-        
         target.health -= damage;
         if (target.health <= 0) {
             target.alive = false;
