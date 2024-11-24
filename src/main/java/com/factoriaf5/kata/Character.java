@@ -60,4 +60,9 @@ public class Character {
     public int getRange() {
         return range;
     }
+
+    public Integer getLevel() {
+       
+        throw new UnsupportedOperationException("Unimplemented method 'getLevel'");
+    }
 }

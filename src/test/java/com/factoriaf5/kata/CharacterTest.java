@@ -13,7 +13,7 @@ public class CharacterTest {
 
     @BeforeEach
     void setUp() {
-        character = new Character();
+        character = new Character(null);
     }
     @Test
     void testInitialHealth() {
@@ -32,33 +32,33 @@ public class CharacterTest {
 
     @Test
     void testDamageReducesHealth() {
-        character.Damage(200);
+        character.Damage(character, 200, 0);
         assertEquals(800, character.getHealth(), "La salud debe reducirse en 200");
     }
 
     @Test
     void testDamageKillsCharacter() {
-        character.Damage(1000);
+        character.Damage(character, 1000, 0);
         assertFalse(character.isAlive(), "El personaje debe estar muerto si la salud llega a 0 o menos");
     }
 
     @Test
     void testHealIncreasesHealth() {
-        character.Damage(500);
-        character.heal(200);
+        character.Damage(character, 500, 0);
+        character.healSelf(200);
         assertEquals(700, character.getHealth(), "La salud debe ser 700 después de recibir daño y curarse");
     }
 
     @Test
     void testHealDoesNotExceedMaxHealth() {
-        character.heal(200);
+        character.healSelf(200);
         assertEquals(1000, character.getHealth(), "La salud no debe superar 1000");
     }
 
     @Test
     void testCannotHealWhenDead() {
-        character.Damage(1000);
-        character.heal(200);
+        character.Damage(character, 1000, 0);
+        character.healSelf(200);
         assertEquals(0, character.getHealth(), "No se debe poder curar si está muerto");
     }
 }
